@@ -2,6 +2,8 @@ package se.lexicon.model;
 
 import se.lexicon.util.IdGenerator;
 
+import java.util.Objects;
+
 public class TodoItemTask {
     private int id;
     private  TodoItem todoItem;
@@ -54,17 +56,26 @@ public class TodoItemTask {
 
 
 
-    public String getSummary(){
-        StringBuilder sb=new StringBuilder();
-        sb.append("{ id: ");
-        sb.append(id);
-        sb.append(" , assigned: ");
-        sb.append(assigned);
-        sb.append(" , todoItem: ");
-        sb.append(todoItem.getSummary());
-        sb.append(" , assignee: ");
-        sb.append(assignee != null ? assignee.getFirstName()+" "+assignee.getLastName():"Null");
-        sb.append("}");
-        return sb.toString();
+
+    @Override
+    public String toString() {
+        return "TodoItemTask{" +
+                "id=" + id +
+                ", todoItem=" + todoItem +
+                ", assigned=" + assigned +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TodoItemTask that = (TodoItemTask) o;
+        return id == that.id && assigned == that.assigned && Objects.equals(todoItem, that.todoItem);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, todoItem, assigned);
     }
 }

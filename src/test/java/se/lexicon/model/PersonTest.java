@@ -32,11 +32,7 @@ class PersonTest {
         assertEquals("Test@gmail.com",person.getEmail());
    }
 
-    @Test
-    void getSummary() {
-        String expected="{ id: "+person.getId()+" "+", name: Sayana Surendran , email: sayana@gmail.com}";
-        assertEquals(expected,person.getSummary());
-    }
+
 
     @Test
     void testNullFirstName(){

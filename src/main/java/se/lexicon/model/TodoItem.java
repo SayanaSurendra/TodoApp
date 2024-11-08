@@ -13,8 +13,6 @@ public class TodoItem {
     private boolean done;
     private Person creator;
 
-    //constructors
-
 
     public TodoItem(String title, String taskDescription, LocalDate deadLine, Person creator) {
         this.id= IdGenerator.nextId();
@@ -28,7 +26,6 @@ public class TodoItem {
     public int getId() {
         return id;
     }
-
 
     public String getTitle() {
         return title;
@@ -75,25 +72,27 @@ public class TodoItem {
         return LocalDate.now().isAfter(deadLine);
     }
 
-    public String getSummary(){
-        StringBuilder sb=new StringBuilder();
-        sb.append("{ id: ");
-        sb.append(id);
-        sb.append(" , title: ");
-        sb.append(title);
-        sb.append(", taskDescription: ");
-        sb.append(taskDescription);
-        sb.append(" , deadLine: ");
-        sb.append(deadLine);
-        sb.append(" , Done: ");
-        sb.append(done);
-        sb.append(" , Person: ");
-        sb.append(creator.getFirstName());
-        sb.append(" ");
-        sb.append(creator.getLastName());
-        sb.append("}");
-        return sb.toString();
+     @Override
+    public String toString() {
+        return "TodoItem{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", taskDescription='" + taskDescription + '\'' +
+                ", deadLine=" + deadLine +
+                ", done=" + done +
+                '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TodoItem todoItem = (TodoItem) o;
+        return id == todoItem.id && done == todoItem.done && Objects.equals(title, todoItem.title) && Objects.equals(taskDescription, todoItem.taskDescription) && Objects.equals(deadLine, todoItem.deadLine);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, taskDescription, deadLine, done);
+    }
 }

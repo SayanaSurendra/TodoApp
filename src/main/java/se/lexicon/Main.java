@@ -1,8 +1,6 @@
 package se.lexicon;
 
-import se.lexicon.model.Person;
-import se.lexicon.model.TodoItem;
-import se.lexicon.model.TodoItemTask;
+import se.lexicon.model.*;
 
 import java.time.LocalDate;
 
@@ -10,12 +8,13 @@ import java.time.LocalDate;
 public class Main {
     public static void main(String[] args) {
 
-        Person person=new Person("Sayana","Surendran","sayana@gmail.com");
+        AppUser appUser1=new AppUser("Erik","Erik@123", AppRole.ROLE_APP_ADMIN);
+
+        Person person=new Person("Sayana","Surendran","sayana@gmail.com",appUser1);
 
         TodoItem todoItem=new TodoItem("Change tires","Need to change tires", LocalDate.of(2024,11,11),person);
-
-        System.out.println( person.getSummary());
-        System.out.println( todoItem.getSummary());
+        System.out.println( appUser1.toString());
+       System.out.println( person.toString());
 
         todoItem.setDone(true);
         if(todoItem.isOverdue()){
@@ -26,8 +25,8 @@ public class Main {
 
 
         TodoItemTask task1= new TodoItemTask(todoItem,person);
-        System.out.println(task1.getSummary());
+       // System.out.println(task1.getSummary());
         task1.setAssignee(null);
-        System.out.println(task1.getSummary());
+        //System.out.println(task1);
     }
 }
