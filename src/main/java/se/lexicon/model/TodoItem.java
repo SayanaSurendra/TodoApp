@@ -1,7 +1,6 @@
 package se.lexicon.model;
 
-import se.lexicon.util.IdGenerator;
-
+import se.lexicon.data.sequencers.TodoItemIdSequencer;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -15,7 +14,7 @@ public class TodoItem {
 
 
     public TodoItem(String title, String taskDescription, LocalDate deadLine, Person creator) {
-        this.id= IdGenerator.nextId();
+        this.id= TodoItemIdSequencer.nextId();
         this.setTitle(title);
         this.taskDescription = taskDescription;
         this.setDeadLine(deadLine);

@@ -1,7 +1,6 @@
 package se.lexicon.model;
 
-import se.lexicon.util.IdGenerator;
-
+import se.lexicon.data.sequencers.TodoItemTaskIdSequencer;
 import java.util.Objects;
 
 public class TodoItemTask {
@@ -12,7 +11,7 @@ public class TodoItemTask {
 
 
     public TodoItemTask(TodoItem todoItem, Person assignee) {
-        this.id= IdGenerator.nextId();
+        this.id= TodoItemTaskIdSequencer.nextId();
         this.todoItem = todoItem;
         this.setAssignee(assignee);
 
