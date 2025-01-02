@@ -1,64 +1,67 @@
 package se.lexicon;
 
-import se.lexicon.data.dao.*;
-import se.lexicon.model.*;
+import se.lexicon.data.dao.People;
+import se.lexicon.data.dao.TodoItems;
+import se.lexicon.data.dao.impl.PeopleImpl;
+import se.lexicon.data.dao.impl.TodoItemsImpl;
+import se.lexicon.db.MYSQLConnection;
+import se.lexicon.model.Person;
+import se.lexicon.model.Todo;
 
+import java.sql.Connection;
 import java.time.LocalDate;
 
 
 public class Main {
     public static void main(String[] args) {
 
-        AppUser appUser1=new AppUser("Erik","Erik@123", AppRole.ROLE_APP_ADMIN);
+        Connection connection= MYSQLConnection.getConnection();
 
-        AppUser appUser2=new AppUser("Fedrik","fedrik@123", AppRole.ROLE_APP_USER);
-
-        Person person=new Person("Sayana","Surendran","sayana@gmail.com",appUser1);
-        Person person2=new Person("Steve","Svensson","steve@gmail.com",appUser2);
-
-        TodoItem todoItem=new TodoItem("Change tires","Need to change tires", LocalDate.of(2024,11,11),person);
-        TodoItem todoItem1=new TodoItem("Groceries","Need to buy groceries", LocalDate.of(2024,11,20),person2);
-
-        TodoItemTask task1= new TodoItemTask(todoItem,person);
-        System.out.println(task1);
-
-        System.out.println( appUser1.toString());
-        System.out.println( person.toString());
-
-        todoItem.setDone(true);
-        if(todoItem.isOverdue()){
-            System.out.println("TodoItem is overdue");
-        }else{
-            System.out.println("Deadline is not over");
-        }
+        People people=new PeopleImpl(connection);
+        /*Person person=new Person("Fredrik","Svensson");
+        Person person=new Person("Sayana","Surendran");
+        Person person=new Person("Mathews","Svensson");*/
+        Person person=new Person("Anna","Svensson");
+        people.create(person);
+        System.out.println(people.findById(2));
+        System.out.println(people.findByName("Mathews"));
+        System.out.println(people.findAll());
+        Person person1=people.findById(3);
+        person.setLastName("Johnsson");
+        System.out.println(people.update(person1));
+        people.deleteById(4);
+        System.out.println(people.findAll());
 
 
 
+        TodoItems todoItem=new TodoItemsImpl(connection);
+        //Todo todo=new Todo("Change tires","Need to change tires", LocalDate.of(2025,1,9),false,2);
+       // Todo todo=new Todo("Cooking","Need to cook Lunch", LocalDate.of(2025,1,11),false);
+       // Todo todo=new Todo("Groceries","Need to buy groceries", LocalDate.of(2025,1,5),false,2);
+       // Todo todo=new Todo("Complete Homework","Finish Science exercises", LocalDate.of(2025,1,5),false);
+       // Todo todo=new Todo("Meeting","Discussion about courses", LocalDate.of(2025,2,3),false,1);
+        //todoItem.create(todo);
 
-        AppUserDAO appUserDAO=new AppUserDAOCollection();
-        appUserDAO.persist(appUser1);
-        appUserDAO.persist(appUser2);
-        System.out.println("List of appUsers: "+appUserDAO.findAll());
-        System.out.println(appUserDAO.findByUsername("erik"));
-        appUserDAO.remove("erik");
-        System.out.println("List of appUsers: "+appUserDAO.findAll());
-        System.out.println("==========================");
 
-        TodoItemDAO todoItemDAO=new TodoItemDAOCollection();
-        todoItemDAO.persist(todoItem1);
-        todoItemDAO.persist(todoItem);
-        System.out.println("Todoitem by id: "+todoItemDAO.findById(todoItem1.getId()));
-        System.out.println("TodoItem deadline: "+ todoItemDAO.findByDeadLineAfter(LocalDate.of(2024,11,19)));
-        System.out.println("TodoItem by personId: "+todoItemDAO.findByPersonId(todoItem1.getCreator().getId()));
-        System.out.println("List of todoitems: "+ todoItemDAO.findAll());
-        System.out.println("Task before deadline:"+ todoItemDAO.findByDeadLineBefore(LocalDate.of(2024,11,21)));
-        System.out.println("==========================");
 
-        TodoItemTaskDAO todoItemTaskDAO=new TodoItemTaskDAOCollection();
-        todoItemTaskDAO.persist(task1);
-        System.out.println("TodoItemTaskDAO:::" +todoItemTaskDAO.findAll());
-        System.out.println(todoItemTaskDAO.findByAssignedStatus(false));
-        System.out.println(todoItemTaskDAO.findByPersonId(task1.getAssignee().getId()));
+        System.out.println(todoItem.findAll());
+        System.out.println("====================================");
+        System.out.println(todoItem.findByAssignee(people.findById(1)));
+        System.out.println("====================================");
+           System.out.println(todoItem.findByAssignee(2));
+        System.out.println("====================================");
+        Todo todo=todoItem.findById(1);
+        todo.setDone(true);
+        todoItem.update(todo);
+        System.out.println("<====================================>");
+        System.out.println(todoItem.findByDoneStatus(false));
+        System.out.println("====================================");
+        System.out.println(todoItem.findByUnassignedTodoItems());
+        todoItem.deleteById(4);
+
+        System.out.println("====================================");
+
+
 
 
     }
