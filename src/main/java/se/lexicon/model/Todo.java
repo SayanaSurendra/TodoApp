@@ -1,26 +1,38 @@
 package se.lexicon.model;
 
-import se.lexicon.data.sequencers.TodoItemIdSequencer;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class TodoItem {
+public class Todo {
     private int id;
     private String title;
     private String taskDescription;
     private LocalDate deadLine;
     private boolean done;
-    private Person creator;
+    private Integer assigned_id;
 
 
-    public TodoItem(String title, String taskDescription, LocalDate deadLine, Person creator) {
-        this.id= TodoItemIdSequencer.nextId();
-        this.setTitle(title);
+    public Todo( String title, String taskDescription, LocalDate deadLine, boolean done) {
+        this.title = title;
         this.taskDescription = taskDescription;
-        this.setDeadLine(deadLine);
-        this.creator = creator;
-        this.done=false;
+        this.deadLine = deadLine;
+        this.done = done;
     }
+
+
+    public Todo(String title, String taskDescription, LocalDate deadLine, boolean done,Integer assigned_id) {
+        this(title,taskDescription,deadLine,done);
+        this.assigned_id=assigned_id;
+    }
+
+
+
+    public Todo(int id, String title, String description, LocalDate deadline, boolean done, Integer assigned_id) {
+        this(title,description,deadline,done,assigned_id);
+        this.id=id;
+
+    }
+
 
     public int getId() {
         return id;
@@ -59,12 +71,14 @@ public class TodoItem {
         this.done = done;
     }
 
-    public Person getCreator() {
-        return creator;
+
+
+    public Integer getAssigned_id() {
+        return assigned_id;
     }
 
-    public void setCreator(Person creator) {
-        this.creator = creator;
+    public void setAssigned_id(int assigned_id) {
+        this.assigned_id = assigned_id;
     }
 
     public boolean isOverdue() {
@@ -79,6 +93,7 @@ public class TodoItem {
                 ", taskDescription='" + taskDescription + '\'' +
                 ", deadLine=" + deadLine +
                 ", done=" + done +
+                ", assignedid=" + assigned_id+
                 '}';
     }
 
@@ -86,7 +101,7 @@ public class TodoItem {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TodoItem todoItem = (TodoItem) o;
+        Todo todoItem = (Todo) o;
         return id == todoItem.id && done == todoItem.done && Objects.equals(title, todoItem.title) && Objects.equals(taskDescription, todoItem.taskDescription) && Objects.equals(deadLine, todoItem.deadLine);
     }
 

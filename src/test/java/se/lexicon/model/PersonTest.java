@@ -11,7 +11,7 @@ class PersonTest {
 
     @BeforeEach
     void setUp() {
-       person=new Person("Sayana","Surendran","sayana@gmail.com");
+       person=new Person("Sayana","Surendran");
     }
 
 
@@ -19,17 +19,17 @@ class PersonTest {
    void testConstructPerson(){
         assertEquals("Sayana",person.getFirstName());
         assertEquals("Surendran",person.getLastName());
-        assertEquals("sayana@gmail.com",person.getEmail());
+
    }
 
    @Test
    void testGettersSetters(){
         person.setFirstName("Erik");
         person.setLastName("Svensson");
-        person.setEmail("Test@gmail.com");
+
         assertEquals("Erik",person.getFirstName());
         assertEquals("Svensson",person.getLastName());
-        assertEquals("Test@gmail.com",person.getEmail());
+
    }
 
 
@@ -37,7 +37,7 @@ class PersonTest {
     @Test
     void testNullFirstName(){
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new Person(null,"Surendran","sayanag@mail.com");
+            new Person(null,"Surendran");
         });
     }
 }

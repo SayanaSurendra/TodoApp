@@ -7,16 +7,16 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TodoItemTest {
+class TodoTest {
 
     private Person person;
-    private TodoItem todoItem;
-    private TodoItem overdueItem;
+    private Todo todoItem;
+    private Todo overdueItem;
 
     @BeforeEach
     void setUp() {
-        person=new Person("Sayana","Surendran","sayana@gmail.com");
-        todoItem=new TodoItem("Change tires","Need to change the tires for winter", LocalDate.of(2024,11,11),person);
+        person=new Person("Sayana","Surendran");
+        todoItem=new Todo("Change tires","Need to change the tires for winter", LocalDate.of(2025,1,11),person.getId());
     }
 
 
@@ -24,9 +24,9 @@ class TodoItemTest {
     void testConstructTodoItem(){
         assertEquals("Change tires",todoItem.getTitle());
         assertEquals("Need to change the tires for winter",todoItem.getTaskDescription());
-        assertEquals(LocalDate.of(2024,11,11),todoItem.getDeadLine());
+        assertEquals(LocalDate.of(2025,1,11),todoItem.getDeadLine());
         assertFalse(todoItem.isDone());
-        assertEquals(person,todoItem.getCreator());
+        assertEquals(person.getId(),todoItem.getId());
     }
 
     @Test
@@ -39,7 +39,7 @@ class TodoItemTest {
 
     @Test
     void testIsOverdue() {
-        overdueItem=new TodoItem("Cleaning Car","Car needs to washed and serviced",LocalDate.of(2024,10,5),person);
+        overdueItem=new Todo("Cleaning Car","Car needs to washed and serviced",LocalDate.of(2024,10,5),person.getId());
         assertTrue(overdueItem.isOverdue());
         assertFalse(todoItem.isOverdue());
     }

@@ -1,16 +1,17 @@
 package se.lexicon.model;
 
 import se.lexicon.data.sequencers.TodoItemTaskIdSequencer;
+
 import java.util.Objects;
 
 public class TodoItemTask {
     private int id;
-    private  TodoItem todoItem;
+    private Todo todoItem;
     private Person assignee;
     private boolean assigned;
 
 
-    public TodoItemTask(TodoItem todoItem, Person assignee) {
+    public TodoItemTask(Todo todoItem, Person assignee) {
         this.id= TodoItemTaskIdSequencer.nextId();
         this.todoItem = todoItem;
         this.setAssignee(assignee);
@@ -30,11 +31,11 @@ public class TodoItemTask {
 
     }
 
-    public TodoItem getTodoItem() {
+    public Todo getTodoItem() {
         return todoItem;
     }
 
-    public void setTodoItem(TodoItem todoItem) {
+    public void setTodoItem(Todo todoItem) {
         if(todoItem == null) throw new IllegalArgumentException("TodoItem must not be null");
         this.todoItem = todoItem;
     }
