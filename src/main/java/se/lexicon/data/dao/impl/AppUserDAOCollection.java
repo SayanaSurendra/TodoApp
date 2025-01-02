@@ -1,5 +1,6 @@
-package se.lexicon.data.dao;
+package se.lexicon.data.dao.impl;
 
+import se.lexicon.data.dao.AppUserDAO;
 import se.lexicon.model.AppUser;
 
 import java.util.Collection;
@@ -7,7 +8,7 @@ import java.util.Collections;
 import java.util.HashSet;
 
 
-public class AppUserDAOCollection implements AppUserDAO{
+public class AppUserDAOCollection implements AppUserDAO {
 
    private  Collection<AppUser> appUsers;
 

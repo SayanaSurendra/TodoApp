@@ -1,12 +1,13 @@
-package se.lexicon.data.dao;
+package se.lexicon.data.dao.impl;
 
+import se.lexicon.data.dao.TodoItemTaskDAO;
 import se.lexicon.model.TodoItemTask;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 
 
-public class TodoItemTaskDAOCollection implements TodoItemTaskDAO{
+public class TodoItemTaskDAOCollection implements TodoItemTaskDAO {
 
     private Collection<TodoItemTask> todoItemTasks;
 
